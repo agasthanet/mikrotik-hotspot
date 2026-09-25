@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="-1" />
+    <title>Nextcoon Digital - Sesi Berakhir</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="./js/tailwind.min.js"></script>
+    <link href="./css/all.min.css" rel="stylesheet" />
+    <style>
+         @import url("./webfonts/PlusJakartaSans-VariableFont_wght.ttf");
+        :root {
+            --next-blue: #0066FF;
+            --next-cyan: #0084FF;
+            --next-light: #f8fafc;
+            --next-text: #1e293b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--next-light);
+            color: var(--next-text);
+            overflow-x: hidden;
+        }
+
+        /* Background Soft Mesh */
+        .mesh-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(0, 102, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 229, 255, 0.05) 0%, transparent 50%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 1);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-nextcoon {
+            background: linear-gradient(135deg, var(--next-blue) 0%, #0044CC 100%);
+            box-shadow: 0 10px 25px -5px rgba(0, 102, 255, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: white;
+        }
+
+        .btn-nextcoon:active { transform: scale(0.96); }
+
+        .infinity-oo {
+            color: var(--next-blue);
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .stat-box {
+            background: #f1f5f9;
+            border-radius: 1.5rem;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        #waModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        #waModal.active { display: flex; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-6">
+
+    <div class="mesh-bg"></div>
+
+    <div class="w-full max-w-[400px] animate-in fade-in slide-in-from-bottom-4 duration-700">
+        
+        <!-- Header / Logo Area -->
+        <header class="text-center mb-10 pt-8">
+            <div class="flex items-center justify-center gap-2 mb-2">
+                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-md border border-slate-100">
+                   <i class="fas fa-infinity text-blue-600 text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-black italic tracking-tighter text-slate-800">
+                    NEXTC<span class="infinity-oo">∞</span>N <span class="text-slate-400 font-normal not-italic">DIGITAL</span>
+                </h1>
+            </div>
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-[4px]">Sesi Telah Berakhir</p>
+        </header>
+
+        <!-- Logout Summary Card -->
+        <div class="glass-card rounded-[2.5rem] overflow-hidden mb-8 shadow-2xl">
+            <!-- Disconnection Indicator -->
+            <div class="bg-slate-200 p-5 flex justify-between items-center text-slate-600">
+                <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 bg-slate-400 rounded-full"></div>
+                    <span class="text-[10px] font-black uppercase tracking-widest">Koneksi Terputus</span>
+                </div>
+                <i class="fas fa-power-off text-slate-400"></i>
+            </div>
+
+            <div class="p-8">
+                <!-- Message -->
+                <div class="text-center mb-8">
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Terima kasih,</p>
+                    <h2 class="text-xl font-black text-slate-800 tracking-tight">$(username)</h2>
+                    <p class="text-[11px] text-slate-500 mt-2 leading-relaxed">Anda telah berhasil keluar. Berikut adalah ringkasan penggunaan sesi terakhir Anda:</p>
+                </div>
+
+                <!-- Metrics Grid -->
+                <div class="grid grid-cols-2 gap-4 mb-8">
+                    <div class="stat-box">
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Total Durasi</p>
+                        <p class="text-sm font-black text-slate-800">$(uptime)</p>
+                    </div>
+                    <div class="stat-box">
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Total Download</p>
+                        <p class="text-sm font-black text-blue-600">$(bytes-in-nice)</p>
+                    </div>
+                    <div class="stat-box">
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Total Upload</p>
+                        <p class="text-sm font-black text-slate-800">$(bytes-out-nice)</p>
+                    </div>
+                    <div class="stat-box">
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1">Sisa Kuota</p>
+                        <p class="text-sm font-black text-slate-800">$(limit-bytes-total-nice)</p>
+                    </div>
+                </div>
+
+                <!-- Re-login Button -->
+                <a href="login.html" class="block w-full">
+                    <button class="btn-nextcoon w-full py-4 rounded-2xl font-black text-xs uppercase tracking-[0.2em]">Masuk Kembali</button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Info Area -->
+        <div class="px-2 mb-12">
+            <div class="bg-white/50 border border-slate-200 rounded-3xl p-5 flex items-start gap-4 shadow-sm">
+                <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center shrink-0">
+                    <i class="fas fa-receipt"></i>
+                </div>
+                <p class="text-[10px] text-slate-500 leading-relaxed font-medium">
+                    Data di atas adalah penggunaan akumulasi selama Anda terhubung. Anda bisa melihat riwayat transaksi lengkap melalui tombol riwayat di bawah.
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center pb-24 opacity-60">
+            <p class="text-[8px] font-black text-slate-400 uppercase tracking-[0.4em]">Nextcoon Digital Infrastructure</p>
+        </footer>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-2xl border-t border-slate-100 p-4 pb-8 flex justify-around items-center z-50">
+        <a href="https://beliwifi.com/all-transaction" class="flex flex-col items-center gap-1 text-slate-400 hover:text-blue-600">
+            <i class="fas fa-receipt text-lg"></i>
+            <span class="text-[8px] font-bold uppercase tracking-widest">Riwayat</span>
+        </a>
+        <div class="px-8 py-2.5 bg-slate-900 text-white rounded-full text-[10px] font-black tracking-[0.2em] uppercase shadow-lg cursor-pointer active:scale-95" onclick="window.location.href='login.html'">LOGIN</div>
+        <button onclick="toggleModal(true)" class="flex flex-col items-center gap-1 text-slate-400 hover:text-blue-600">
+            <i class="fab fa-whatsapp text-xl"></i>
+            <span class="text-[8px] font-bold uppercase tracking-widest">Bantuan</span>
+        </button>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="waModal" onclick="toggleModal(false)">
+        <div class="bg-white max-w-[340px] w-full p-8 rounded-[2.5rem] text-center shadow-2xl animate-in zoom-in duration-300" onclick="event.stopPropagation()">
+            <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <i class="fab fa-whatsapp text-4xl"></i>
+            </div>
+            <h3 class="text-xl font-black text-slate-800 mb-2 uppercase tracking-tighter">Pusat Bantuan</h3>
+            <p class="text-xs text-slate-500 mb-6 leading-relaxed">Ada kendala koneksi atau ingin beli paket? Hubungi admin kami melalui WhatsApp.</p>
+            
+            <div class="bg-blue-50 rounded-3xl p-5 mb-6 border border-blue-100">
+                <p class="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-1">WhatsApp Official</p>
+                <p class="text-lg font-black text-blue-600 tracking-wider">+62 812-3456-7890</p>
+            </div>
+
+            <a href="https://wa.me/6281234567890" target="_blank" class="block w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest">Chat WhatsApp</a>
+            <button onclick="toggleModal(false)" class="mt-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Kembali</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleModal(show) {
+            const modal = document.getElementById('waModal');
+            if(show) modal.classList.add('active'); else modal.classList.remove('active');
+        }
+    </script>
+</body>
+</html>
